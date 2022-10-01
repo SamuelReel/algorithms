@@ -2,17 +2,20 @@ import numpy as np
 import math
 
 
-def matrixchainorder(p):
+def mco(p):
     n = len(p) - 1
     m = np.empty(shape=(n + 1, n + 1), dtype='object')
     s = np.empty(shape=(n + 1, n + 1), dtype='object')
 
+    # All values m[i][i] should be zero
     for i in range(1, n + 1):
         m[i][i] = 0
 
     for l in range(2, n + 1):
         for i in range(1, n - l + 2):
             j = i + l - 1
+
+            # Initialize each space to infinity
             m[i][j] = math.inf
             for k in range(i, j):
                 q = m[i][k] + m[k + 1][j] + p[i - 1] * p[k] * p[j]
@@ -37,4 +40,4 @@ def printoptimalparens(s, i, j):
 
 P = [3, 4, 5, 6]
 
-matrixchainorder(P)
+mco(P)
